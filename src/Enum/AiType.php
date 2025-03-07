@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Wolfcode\Ai\Enums;
+namespace Wolfcode\Ai\Enum;
 
 enum AiType
 {
