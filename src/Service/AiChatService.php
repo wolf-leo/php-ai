@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Wolfcode\Ai\Service;
 
-use Wolfcode\Ai\Enums\AiType;
+use Wolfcode\Ai\Enum\AiType;
 use Wolfcode\Ai\Exception\AiException;
 use GuzzleHttp\Client;
 
