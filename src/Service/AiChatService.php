@@ -163,8 +163,8 @@ class AiChatService
         $model    = $options['model'] ?? '';
         if ($key) $this->setAiKey($key);
 
-        $params = compact('model', 'messages');
-        return $this->httpPost($url, $params, $this->key);
+        $params = $options['params'] ?? compact('model', 'messages');
+        return $this->httpPost($url, $params, $this->key, $options['headers'] ?? []);
     }
 
     /**
@@ -225,16 +225,17 @@ class AiChatService
      * @param string $url
      * @param array $params
      * @param string $key
+     * @param array $headers
      * @return array
      * @throws AiException
      */
-    protected function httpPost(string $url, array $params = [], string $key = ''): array
+    protected function httpPost(string $url, array $params = [], string $key = '', array $headers = []): array
     {
         set_time_limit($this->time_limit);
         $client = new Client(['timeout' => 300.0]);
         try {
             $promise = $client->requestAsync('POST', $url, [
-                'headers'         => ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $key],
+                'headers'         => $headers ?: ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $key],
                 'json'            => $params,
                 'connect_timeout' => 300.0,
             ])->then(function($response) {
